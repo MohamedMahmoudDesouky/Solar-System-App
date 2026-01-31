@@ -36,7 +36,7 @@ stages:
         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o trivy-html.tpl
 
         # Run Trivy scan and generate HTML report
-        ./bin/trivy image \
+        trivy image \
           --severity HIGH,CRITICAL \
           --format template \
           --template "@trivy-html.tpl" \
