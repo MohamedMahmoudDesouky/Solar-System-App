@@ -30,7 +30,7 @@ stages:
 
     - script: |
         # Install Trivy
-        #curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
 
         # Download HTML template
         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o trivy-html.tpl
@@ -49,3 +49,20 @@ stages:
       inputs:
         pathToPublish: trivy-report.html
         artifactName: trivy-report
+
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Selcon-Docker-Hub'
+        command: 'login'
+        addPipelineData: false
+        addBaseImageData: false
+
+        
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Selcon-Docker-Hub'
+        repository: 'solar-system'
+        command: 'push'
+        addPipelineData: false
+        addBaseImageData: false
