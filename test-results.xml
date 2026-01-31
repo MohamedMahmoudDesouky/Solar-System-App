@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.111" tests="11" failures="8">
+  <testsuite name="Root Suite" timestamp="2026-01-31T18:56:55" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Planets API Suite" timestamp="2026-01-31T18:56:55" tests="0" file="/home/omar_adel/solar-system-CI-CD-/app-test.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Fetching Planet Details" timestamp="2026-01-31T18:56:55" tests="8" file="/home/omar_adel/solar-system-CI-CD-/app-test.js" time="0.081" failures="8">
+    <testcase name="Planets API Suite Fetching Planet Details it should fetch a planet named Mercury" time="0.040" classname="it should fetch a planet named Mercury">
+      <failure message="expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404
+    at /home/omar_adel/solar-system-CI-CD-/app-test.js:22:37
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /home/omar_adel/solar-system-CI-CD-/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -404
+      +200
+      ]]></failure>
+    </testcase>
+    <testcase name="Planets API Suite Fetching Planet Details it should fetch a planet named Venus" time="0.006" classname="it should fetch a planet named Venus">
+      <failure message="expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404
+    at /home/omar_adel/solar-system-CI-CD-/app-test.js:37:37
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /home/omar_adel/solar-system-CI-CD-/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -404
+      +200
+      ]]></failure>
+    </testcase>
+    <testcase name="Planets API Suite Fetching Planet Details it should fetch a planet named Earth" time="0.004" classname="it should fetch a planet named Earth">
+      <failure message="expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404
+    at /home/omar_adel/solar-system-CI-CD-/app-test.js:52:37
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /home/omar_adel/solar-system-CI-CD-/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -404
+      +200
+      ]]></failure>
+    </testcase>
+    <testcase name="Planets API Suite Fetching Planet Details it should fetch a planet named Mars" time="0.004" classname="it should fetch a planet named Mars">
+      <failure message="expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404
+    at /home/omar_adel/solar-system-CI-CD-/app-test.js:66:37
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /home/omar_adel/solar-system-CI-CD-/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -404
+      +200
+      ]]></failure>
+    </testcase>
+    <testcase name="Planets API Suite Fetching Planet Details it should fetch a planet named Jupiter" time="0.004" classname="it should fetch a planet named Jupiter">
+      <failure message="expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404
+    at /home/omar_adel/solar-system-CI-CD-/app-test.js:81:37
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /home/omar_adel/solar-system-CI-CD-/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -404
+      +200
+      ]]></failure>
+    </testcase>
+    <testcase name="Planets API Suite Fetching Planet Details it should fetch a planet named Satrun" time="0.004" classname="it should fetch a planet named Satrun">
+      <failure message="expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404
+    at /home/omar_adel/solar-system-CI-CD-/app-test.js:96:37
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /home/omar_adel/solar-system-CI-CD-/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -404
+      +200
+      ]]></failure>
+    </testcase>
+    <testcase name="Planets API Suite Fetching Planet Details it should fetch a planet named Uranus" time="0.004" classname="it should fetch a planet named Uranus">
+      <failure message="expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404
+    at /home/omar_adel/solar-system-CI-CD-/app-test.js:111:37
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /home/omar_adel/solar-system-CI-CD-/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -404
+      +200
+      ]]></failure>
+    </testcase>
+    <testcase name="Planets API Suite Fetching Planet Details it should fetch a planet named Neptune" time="0.004" classname="it should fetch a planet named Neptune">
+      <failure message="expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404" type="AssertionError"><![CDATA[AssertionError: expected Response{ _events: {}, …(35), …(2) } to have status code 200 but got 404
+    at /home/omar_adel/solar-system-CI-CD-/app-test.js:126:37
+    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)
+    at /home/omar_adel/solar-system-CI-CD-/node_modules/superagent/lib/node/index.js:1070:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)
+    at IncomingMessage.emit (node:events:536:35)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+      + expected - actual
+
+      -404
+      +200
+      ]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="Testing Other Endpoints" timestamp="2026-01-31T18:56:55" tests="0" file="/home/omar_adel/solar-system-CI-CD-/app-test.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="it should fetch OS Details" timestamp="2026-01-31T18:56:55" tests="1" file="/home/omar_adel/solar-system-CI-CD-/app-test.js" time="0.004" failures="0">
+    <testcase name="Testing Other Endpoints it should fetch OS Details it should fetch OS details" time="0.003" classname="it should fetch OS details">
+    </testcase>
+  </testsuite>
+  <testsuite name="it should fetch Live Status" timestamp="2026-01-31T18:56:55" tests="1" file="/home/omar_adel/solar-system-CI-CD-/app-test.js" time="0.003" failures="0">
+    <testcase name="Testing Other Endpoints it should fetch Live Status it checks Liveness endpoint" time="0.003" classname="it checks Liveness endpoint">
+    </testcase>
+  </testsuite>
+  <testsuite name="it should fetch Ready Status" timestamp="2026-01-31T18:56:55" tests="1" file="/home/omar_adel/solar-system-CI-CD-/app-test.js" time="0.003" failures="0">
+    <testcase name="Testing Other Endpoints it should fetch Ready Status it checks Readiness endpoint" time="0.003" classname="it checks Readiness endpoint">
+    </testcase>
+  </testsuite>
+</testsuites>
