@@ -27,3 +27,25 @@ stages:
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
         tags: |
           $(tag)
+
+    - script: |
+        # Install Trivy
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+
+        # Download HTML template
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o trivy-html.tpl
+
+        # Run Trivy scan and generate HTML report
+        ./bin/trivy image \
+          --severity HIGH,CRITICAL \
+          --format template \
+          --template "@trivy-html.tpl" \
+          --output trivy-report.html \
+          myapp:$(tag)
+      displayName: Trivy scan & generate HTML report
+
+    - task: PublishBuildArtifacts@1
+      displayName: Publish Trivy HTML report
+      inputs:
+        pathToPublish: trivy-report.html
+        artifactName: trivy-report
