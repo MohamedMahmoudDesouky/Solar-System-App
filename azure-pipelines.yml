@@ -43,13 +43,13 @@ stages:
         # Download HTML template
         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o trivy-html.tpl
 
-        # Scan the image
+        # Scan the CORRECT image name
         ./bin/trivy image \
           --severity HIGH,CRITICAL \
           --format template \
           --template "@trivy-html.tpl" \
           --output trivy-report.html \
-          $(imageName):$(tag)
+          selconyt/solar-system:$(tag)  # ← نفس الاسم المستخدم في Build
       displayName: 'Trivy scan & generate HTML report'
 
     - task: PublishBuildArtifacts@1
