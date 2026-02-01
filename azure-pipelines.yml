@@ -25,6 +25,7 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        repository: 'solar-system'
         tags: |
           $(tag)
 
@@ -47,7 +48,7 @@ stages:
           --format template \
           --template "@trivy-html.tpl" \
           --output trivy-report.html \
-          myapp:$(tag)
+          solar-system:$(tag)
       displayName: 'Trivy scan & generate HTML report'
 
     - task: PublishBuildArtifacts@1
