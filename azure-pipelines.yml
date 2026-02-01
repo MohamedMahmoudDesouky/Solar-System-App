@@ -10,6 +10,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
+  imageName: 'selconyt/solar-system'
 
 stages:
 - stage: Build
@@ -21,16 +22,16 @@ stages:
       name: Default
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build Docker image
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: 'solar-system'
+        repository: $(imageName)  # ← الاسم الكامل مع المستخدم
         tags: |
           $(tag)
 
     - script: |
-        # Install Trivy to ./bin directory (explicit path)
+        # Install Trivy
         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b ./bin v0.69.0
 
         # Verify installation
@@ -42,13 +43,13 @@ stages:
         # Download HTML template
         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o trivy-html.tpl
 
-        # Run Trivy scan using EXPLICIT PATH
+        # Scan the image
         ./bin/trivy image \
           --severity HIGH,CRITICAL \
           --format template \
           --template "@trivy-html.tpl" \
           --output trivy-report.html \
-          solar-system:$(tag)
+          $(imageName):$(tag)
       displayName: 'Trivy scan & generate HTML report'
 
     - task: PublishBuildArtifacts@1
@@ -57,19 +58,17 @@ stages:
         pathToPublish: trivy-report.html
         artifactName: trivy-report
 
-
     - task: Docker@2
+      displayName: 'Docker Login'
       inputs:
         containerRegistry: 'Selcon-Docker-Hub'
         command: 'login'
-        addPipelineData: false
-        addBaseImageData: false
 
-        
     - task: Docker@2
+      displayName: 'Push to Docker Hub'
       inputs:
         containerRegistry: 'Selcon-Docker-Hub'
-        repository: 'selconyt/solar-system'
+        repository: $(imageName)
         command: 'push'
-        addPipelineData: false
-        addBaseImageData: false
+        tags: |
+          $(tag)
