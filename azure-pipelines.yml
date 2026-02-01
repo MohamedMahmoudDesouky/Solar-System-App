@@ -11,6 +11,8 @@ resources:
 variables:
   tag: '$(Build.BuildId)'
   imageName: 'selconyt/solar-system'
+  trivyCacheDir: '$(Pipeline.Workspace)/.trivy-cache'   # مسار التخزين المؤقت
+  trivyBinDir: '$(Pipeline.Workspace)/.trivy-bin'       # مسار البايناري
 
 stages:
 - stage: Build
@@ -21,49 +23,80 @@ stages:
     pool:
       name: Default
     steps:
+    # ============ 1. تخبئة البايناري ============
+    - task: Cache@2
+      displayName: 'Cache Trivy binary'
+      inputs:
+        key: 'trivy-bin | "$(Agent.OS)" | v0.69.0'
+        path: '$(trivyBinDir)'
+        restoreKeys: |
+          trivy-bin | "$(Agent.OS)"
+
+    # ============ 2. تخبئة قاعدة البيانات ============
+    - task: Cache@2
+      displayName: 'Cache Trivy vulnerability DB'
+      inputs:
+        key: 'trivy-db | "$(Agent.OS)" | "$(Date:yyyyMMdd)"'  # تحديث يومي
+        path: '$(trivyCacheDir)'
+        restoreKeys: |
+          trivy-db | "$(Agent.OS)"
+
+    # ============ 3. Build Docker image ============
     - task: Docker@2
-      displayName: Build Docker image
+      displayName: 'Build Docker image'
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        repository: $(imageName)  # ← الاسم الكامل مع المستخدم
+        repository: $(imageName)
         tags: |
           $(tag)
 
+    # ============ 4. Trivy Scan (باستخدام التخزين المؤقت) ============
     - script: |
-        # Install Trivy
-        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b ./bin v0.69.0
-
-        # Verify installation
-        if [ ! -x "./bin/trivy" ]; then
-          echo "❌ Trivy installation failed!"
-          exit 1
+        # إنشاء المجلدات لو مش موجودة
+        mkdir -p $(trivyBinDir) $(trivyCacheDir)
+        
+        # تثبيت Trivy لو مش موجود في الكاش
+        if [ ! -f "$(trivyBinDir)/trivy" ]; then
+          echo "📦 Installing Trivy v0.69.0..."
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b $(trivyBinDir) v0.69.0
+        else
+          echo "✅ Trivy binary restored from cache"
         fi
-
-        # Download HTML template
+        
+        # تحميل قالب HTML
         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o trivy-html.tpl
-
-        # Scan the image
-        ./bin/trivy image \
+        
+        # تشغيل الفحص باستخدام التخزين المؤقت
+        echo "🔍 Scanning image: $(imageName):$(tag)..."
+        $(trivyBinDir)/trivy image \
+          --cache-dir $(trivyCacheDir) \
           --severity HIGH,CRITICAL \
           --format template \
           --template "@trivy-html.tpl" \
           --output trivy-report.html \
           $(imageName):$(tag)
+        
+        echo "✅ Scan completed successfully"
       displayName: 'Trivy scan & generate HTML report'
+      env:
+        TRIVY_CACHE_DIR: $(trivyCacheDir)  # بديل لـ --cache-dir
 
+    # ============ 5. نشر التقرير ============
     - task: PublishBuildArtifacts@1
-      displayName: Publish Trivy HTML report
+      displayName: 'Publish Trivy HTML report'
       inputs:
         pathToPublish: trivy-report.html
         artifactName: trivy-report
 
+    # ============ 6. Docker Login ============
     - task: Docker@2
       displayName: 'Docker Login'
       inputs:
         containerRegistry: 'Selcon-Docker-Hub'
         command: 'login'
 
+    # ============ 7. Push to Docker Hub ============
     - task: Docker@2
       displayName: 'Push to Docker Hub'
       inputs:
