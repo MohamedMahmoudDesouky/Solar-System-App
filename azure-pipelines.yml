@@ -29,20 +29,26 @@ stages:
           $(tag)
 
     - script: |
-        # Install Trivy
-        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
+        # Install Trivy to ./bin directory (explicit path)
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b ./bin v0.69.0
+
+        # Verify installation
+        if [ ! -x "./bin/trivy" ]; then
+          echo "❌ Trivy installation failed!"
+          exit 1
+        fi
 
         # Download HTML template
         curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o trivy-html.tpl
 
-        # Run Trivy scan and generate HTML report
-        trivy image \
+        # Run Trivy scan using EXPLICIT PATH
+        ./bin/trivy image \
           --severity HIGH,CRITICAL \
           --format template \
           --template "@trivy-html.tpl" \
           --output trivy-report.html \
           myapp:$(tag)
-      displayName: Trivy scan & generate HTML report
+      displayName: 'Trivy scan & generate HTML report'
 
     - task: PublishBuildArtifacts@1
       displayName: Publish Trivy HTML report
